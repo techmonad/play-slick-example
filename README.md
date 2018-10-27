@@ -1,4 +1,4 @@
-play-slick-app [ ![Codeship Status for techmonad/play-slick-app](https://app.codeship.com/projects/8a9b68a0-4e15-0136-d88f-42007895f430/status?branch=master)](https://app.codeship.com/projects/293442)
+play-slick-example [ ![Codeship Status for techmonad/play-slick-app](https://app.codeship.com/projects/8a9b68a0-4e15-0136-d88f-42007895f430/status?branch=master)](https://app.codeship.com/projects/293442)
 =======
 
 -----------------------------------------------------------------------
