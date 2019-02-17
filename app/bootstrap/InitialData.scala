@@ -2,7 +2,7 @@ package bootstrap
 
 import com.google.inject.Inject
 import models.Employee
-import play.Logger
+import org.slf4j.LoggerFactory
 import repository.EmployeeRepository
 
 import scala.concurrent.duration.Duration
@@ -10,17 +10,19 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 
 class InitialData @Inject()(employeeRepo: EmployeeRepository)(implicit ec: ExecutionContext) {
 
+  val logger = LoggerFactory.getLogger(this.getClass)
+
   def insert: Future[Unit] = for {
-    emps <- employeeRepo.getAll() if (emps.length == 0)
+    employees <- employeeRepo.getAll() if (employees.length == 0)
     _ <- employeeRepo.insertAll(Data.employees)
   } yield {}
 
   try {
-    Logger.info("DB initialization.................")
+    logger.info("DB initialization.................")
     Await.result(insert, Duration.Inf)
   } catch {
     case ex: Exception =>
-      Logger.error("Error in database initialization ", ex)
+      logger.error("Error in database initialization ", ex)
   }
 
 }
