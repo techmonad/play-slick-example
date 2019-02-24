@@ -2,6 +2,7 @@ package controllers
 
 import com.google.inject.Inject
 import models.Employee
+import org.slf4j.LoggerFactory
 import play.api.Logger
 import play.api.i18n._
 import play.api.libs.json.Json._
@@ -26,7 +27,7 @@ class EmployeeController @Inject()(
 
   import Constants._
 
-  val logger = Logger(this.getClass())
+  val logger = LoggerFactory.getLogger(this.getClass)
 
   implicit val lang: Lang = langs.availables.head
 

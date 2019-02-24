@@ -1,56 +1,56 @@
 package repository
 
 
-import play.api.Application
-import play.api.test.{PlaySpecification, WithApplication}
+import org.scalatestplus.play.PlaySpec
+import org.scalatestplus.play.guice.GuiceOneAppPerTest
+import play.api.test.Helpers._
+import play.api.test.{Injecting, WithApplication}
 
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
-
-class EmployeeRepositorySpec extends PlaySpecification {
+class EmployeeRepositorySpec extends PlaySpec with GuiceOneAppPerTest {
 
   import models._
 
   "Employee repository" should {
 
-    def empRepo(implicit app: Application) = Application.instanceCache[EmployeeRepository].apply(app)
-
-
-    "get all rows" in new WithApplication() {
+    "get all rows" in new WithEmpRepository() {
       val result = await(empRepo.getAll)
-      result.length === 3
-      result.head.name === "Bob"
+      result.length mustBe 3
+      result.head.name mustBe "Bob"
     }
 
-    "get single rows" in new WithApplication() {
+    "get single rows" in new WithEmpRepository() {
       val result = await(empRepo.getById(1))
-      result.isDefined === true
-      result.get.name === "Bob"
+      result.isDefined mustBe true
+      result.get.name mustBe "Bob"
     }
 
-    "insert a row" in new WithApplication() {
+    "insert a row" in new WithEmpRepository() {
       val emp = Employee("jaz", "jaz@bar.com", "ABC solution", "Senior Consultant")
       val empId = await(empRepo.insert(emp))
-      empId === 4
+      empId mustBe 4
     }
 
-    "insert multiple rows" in new WithApplication() {
+    "insert multiple rows" in new WithEmpRepository() {
       val list = List(Employee("Sam", "sam@abc.com", "Foo LLP", "Consultant"))
       val result = empRepo.insertAll(list)
-      await(result) === Seq(4)
+      await(result) mustBe Seq(4)
     }
 
-    "update a row" in new WithApplication() {
+    "update a row" in new WithEmpRepository() {
       val result = await(empRepo.update(Employee("BOB", "bob@abc.com", "ABC Solution", "Consultant", Some(1))))
-      result === 1
+      result mustBe 1
     }
 
-    "delete a row" in new WithApplication() {
+    "delete a row" in new WithEmpRepository() {
       val result = await(empRepo.delete(1))
-      result === 1
+      result mustBe 1
     }
   }
 
-  def await[T](v: Future[T]): T = Await.result(v, Duration.Inf)
 
+}
+
+trait WithEmpRepository extends WithApplication with Injecting {
+
+  val empRepo = inject[EmployeeRepository]
 }
