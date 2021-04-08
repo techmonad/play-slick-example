@@ -13,7 +13,7 @@ class EmployeeRepositorySpec extends PlaySpec with GuiceOneAppPerTest {
   "Employee repository" should {
 
     "get all rows" in new WithEmpRepository() {
-      val result = await(empRepo.getAll)
+      val result = await(empRepo.getAll())
       result.length mustBe 3
       result.head.name mustBe "Bob"
     }
