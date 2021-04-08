@@ -3,7 +3,6 @@ package controllers
 import com.google.inject.Inject
 import models.Employee
 import org.slf4j.LoggerFactory
-import play.api.Logger
 import play.api.i18n._
 import play.api.libs.json.Json._
 import play.api.libs.json.{JsError, JsObject, JsValue, Json}

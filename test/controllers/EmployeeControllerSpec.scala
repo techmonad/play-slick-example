@@ -2,8 +2,6 @@ package controllers
 
 
 import models.Employee
-import org.mockito.Mockito._
-import org.scalatest.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.i18n.{DefaultLangs, MessagesApi}
@@ -12,6 +10,9 @@ import play.api.test.Helpers._
 import play.api.test.{Injecting, WithApplication, _}
 import repository.EmployeeRepository
 import utils.JsonFormat._
+import org.mockito.MockitoSugar
+
+
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -71,7 +72,6 @@ class WithEmpApplication(implicit mockedRepo: EmployeeRepository) extends WithAp
   implicit val ec = inject[ExecutionContext]
 
   val messagesApi = inject[MessagesApi]
-
   val employeeController: EmployeeController =
     new EmployeeController(
       stubControllerComponents(),
