@@ -14,7 +14,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick" % "5.0.0",
   "com.typesafe.play" %% "play-slick-evolutions" % "5.0.0",
   "com.h2database" % "h2" % "1.4.200",
-  "org.postgresql" % "postgresql" % "9.4-1206-jdbc42",
+  "org.postgresql" % "postgresql" % "9.4.1212",
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
   "org.mockito" %% "mockito-scala" % "1.16.37",
   specs2 % Test
